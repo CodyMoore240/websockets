@@ -3,7 +3,7 @@ const http = require('http').createServer(app)
 var io = require('socket.io')(http)
 
 //import utils
-import generateToken from 'generateToken'
+const generateToken = require('./generateToken')
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello worlds</h1>')
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   //create a token
-  const token = generateToken()
+  const token = generateToken.generate()
 
   console.log(`a user connected with a token of ${token}`)
 
