@@ -2,7 +2,7 @@ const app = require('express')()
 const http = require('http').createServer(app)
 var io = require('socket.io')(http)
 
-//import utils
+//import modules
 const generateToken = require('./generateToken')
 
 app.get('/', (req, res) => {
@@ -12,8 +12,10 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   //create a token
   const token = generateToken.generate()
-
   console.log(`a user connected with a token of ${token}`)
+  //send the token
+  socket.send(token)
+
 
   //on disconnect event
   socket.on('disconnect', () => {
